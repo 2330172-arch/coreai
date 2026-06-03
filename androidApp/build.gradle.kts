@@ -18,6 +18,7 @@ dependencies {
 
     implementation(libs.compose.uiToolingPreview)
     debugImplementation(libs.compose.uiTooling)
+    implementation("com.google.android.gms:play-services-location:21.3.0")
 }
 
 android {

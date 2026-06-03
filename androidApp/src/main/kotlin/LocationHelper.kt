@@ -1,0 +1,30 @@
+package com.coreai.coreai
+
+import android.annotation.SuppressLint
+import android.content.Context
+import com.google.android.gms.location.LocationServices
+
+object LocationHelper {
+
+    @SuppressLint("MissingPermission")
+    fun getLastLocation(
+        context: Context,
+        onLocationReceived: (Double, Double) -> Unit
+    ) {
+
+        val fusedLocationClient =
+            LocationServices.getFusedLocationProviderClient(context)
+
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener { location ->
+
+                if (location != null) {
+
+                    onLocationReceived(
+                        location.latitude,
+                        location.longitude
+                    )
+                }
+            }
+    }
+}
