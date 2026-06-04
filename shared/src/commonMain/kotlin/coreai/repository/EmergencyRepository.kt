@@ -1,0 +1,3 @@
+package coreai.repository
+
+class EmergencyRepository
