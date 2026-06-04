@@ -1,4 +1,4 @@
-package coreai.models
+package com.coreai.coreai.models
 
 data class Emergency(
     val id: Int,

@@ -25,7 +25,7 @@ fun EmergencyScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(FondoEmergency)
+            .background(_root_ide_package_.com.coreai.coreai.screens.FondoEmergency)
             .padding(16.dp)
     ) {
 
@@ -33,7 +33,7 @@ fun EmergencyScreen() {
 
         Text(
             text = "CORE AI",
-            color = AzulEmergency,
+            color = _root_ide_package_.com.coreai.coreai.screens.AzulEmergency,
             fontSize = 30.sp
         )
 
@@ -47,7 +47,7 @@ fun EmergencyScreen() {
 
         Text(
             text = "Sistema monitoreado activamente",
-            color = AzulEmergency
+            color = _root_ide_package_.com.coreai.coreai.screens.AzulEmergency
         )
 
         Spacer(modifier = Modifier.height(25.dp))
@@ -57,7 +57,7 @@ fun EmergencyScreen() {
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(
-                containerColor = CardEmergency
+                containerColor = _root_ide_package_.com.coreai.coreai.screens.CardEmergency
             ),
             shape = RoundedCornerShape(16.dp)
         ) {
@@ -84,7 +84,7 @@ fun EmergencyScreen() {
                         .width(180.dp)
                         .height(180.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = RojoSOS
+                        containerColor = _root_ide_package_.com.coreai.coreai.screens.RojoSOS
                     ),
                     shape = RoundedCornerShape(20.dp)
                 ) {
@@ -110,7 +110,7 @@ fun EmergencyScreen() {
 
         Card(
             colors = CardDefaults.cardColors(
-                containerColor = CardEmergency
+                containerColor = _root_ide_package_.com.coreai.coreai.screens.CardEmergency
             )
         ) {
 
@@ -143,7 +143,7 @@ fun EmergencyScreen() {
 
         Card(
             colors = CardDefaults.cardColors(
-                containerColor = CardEmergency
+                containerColor = _root_ide_package_.com.coreai.coreai.screens.CardEmergency
             )
         ) {
 
@@ -176,14 +176,14 @@ fun EmergencyScreen() {
 
         Text(
             text = "CONTACTOS DE EMERGENCIA",
-            color = AzulEmergency
+            color = _root_ide_package_.com.coreai.coreai.screens.AzulEmergency
         )
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        ContactCard("Mamá")
-        ContactCard("Papá")
-        ContactCard("Novia")
+        _root_ide_package_.com.coreai.coreai.screens.ContactCard("Mamá")
+        _root_ide_package_.com.coreai.coreai.screens.ContactCard("Papá")
+        _root_ide_package_.com.coreai.coreai.screens.ContactCard("Novia")
     }
 }
 
@@ -196,7 +196,7 @@ fun ContactCard(nombre: String) {
             .padding(bottom = 8.dp),
 
         colors = CardDefaults.cardColors(
-            containerColor = CardEmergency
+            containerColor = _root_ide_package_.com.coreai.coreai.screens.CardEmergency
         )
     ) {
 
@@ -215,7 +215,7 @@ fun ContactCard(nombre: String) {
 
             Text(
                 text = "📞",
-                color = AzulEmergency
+                color = _root_ide_package_.com.coreai.coreai.screens.AzulEmergency
             )
         }
     }

@@ -46,18 +46,18 @@ fun CoreOrb() {
         ) {
 
             drawCircle(
-                color = AzulNeon.copy(alpha = 0.15f),
+                color = _root_ide_package_.com.coreai.coreai.screens.AzulNeon.copy(alpha = 0.15f),
                 radius = radius.value * 2f
             )
 
             drawCircle(
-                color = AzulNeon.copy(alpha = 0.25f),
+                color = _root_ide_package_.com.coreai.coreai.screens.AzulNeon.copy(alpha = 0.25f),
                 radius = radius.value * 1.5f,
                 style = Stroke(width = 4f)
             )
 
             drawCircle(
-                color = AzulNeon,
+                color = _root_ide_package_.com.coreai.coreai.screens.AzulNeon,
                 radius = radius.value
             )
 
@@ -74,7 +74,7 @@ fun HomeScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(FondoOscuro)
+            .background(_root_ide_package_.com.coreai.coreai.screens.FondoOscuro)
     ) {
 
         Column(
@@ -92,13 +92,13 @@ fun HomeScreen() {
 
                 Text(
                     text = "CORE AI",
-                    color = AzulNeon,
+                    color = _root_ide_package_.com.coreai.coreai.screens.AzulNeon,
                     fontSize = 28.sp
                 )
 
                 Text(
                     text = "⚙",
-                    color = AzulNeon,
+                    color = _root_ide_package_.com.coreai.coreai.screens.AzulNeon,
                     fontSize = 24.sp
                 )
             }
@@ -107,7 +107,7 @@ fun HomeScreen() {
 
             Text(
                 text = "Sistema Activo",
-                color = AzulNeon
+                color = _root_ide_package_.com.coreai.coreai.screens.AzulNeon
             )
 
             Spacer(modifier = Modifier.height(25.dp))
@@ -119,7 +119,7 @@ fun HomeScreen() {
                     .fillMaxWidth()
                     .height(400.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = CardColor
+                    containerColor = _root_ide_package_.com.coreai.coreai.screens.CardColor
                 ),
                 shape = RoundedCornerShape(20.dp)
             ) {
@@ -133,7 +133,7 @@ fun HomeScreen() {
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
 
-                        CoreOrb()
+                        _root_ide_package_.com.coreai.coreai.screens.CoreOrb()
 
                         Spacer(modifier = Modifier.height(8.dp))
 
@@ -147,7 +147,7 @@ fun HomeScreen() {
 
                         Text(
                             text = "ASISTENTE ACTIVO",
-                            color = AzulNeon
+                            color = _root_ide_package_.com.coreai.coreai.screens.AzulNeon
                         )
                     }
                 }
@@ -161,7 +161,7 @@ fun HomeScreen() {
                     .fillMaxWidth()
                     .height(60.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = RojoEmergencia
+                    containerColor = _root_ide_package_.com.coreai.coreai.screens.RojoEmergencia
                 )
             ) {
                 Text("✱ Emergencia")
@@ -188,7 +188,7 @@ fun HomeScreen() {
                 Card(
                     modifier = Modifier.weight(1f),
                     colors = CardDefaults.cardColors(
-                        containerColor = CardColor
+                        containerColor = _root_ide_package_.com.coreai.coreai.screens.CardColor
                     )
                 ) {
 
@@ -198,7 +198,7 @@ fun HomeScreen() {
 
                         Text(
                             text = "Próxima alerta",
-                            color = AzulNeon
+                            color = _root_ide_package_.com.coreai.coreai.screens.AzulNeon
                         )
 
                         Text(
@@ -214,7 +214,7 @@ fun HomeScreen() {
                 Card(
                     modifier = Modifier.weight(1f),
                     colors = CardDefaults.cardColors(
-                        containerColor = CardColor
+                        containerColor = _root_ide_package_.com.coreai.coreai.screens.CardColor
                     )
                 ) {
 
@@ -224,7 +224,7 @@ fun HomeScreen() {
 
                         Text(
                             text = "Estado red",
-                            color = AzulNeon
+                            color = _root_ide_package_.com.coreai.coreai.screens.AzulNeon
                         )
 
                         Text(
