@@ -8,37 +8,48 @@ plugins {
 }
 
 kotlin {
+
     listOf(
         iosArm64(),
         iosSimulatorArm64()
     ).forEach { iosTarget ->
+
         iosTarget.binaries.framework {
             baseName = "Shared"
             isStatic = true
         }
     }
-    
+
     androidLibrary {
-       namespace = "com.coreai.coreai.shared"
-       compileSdk = libs.versions.android.compileSdk.get().toInt()
-       minSdk = libs.versions.android.minSdk.get().toInt()
-    
-       compilerOptions {
-           jvmTarget = JvmTarget.JVM_11
-       }
-       androidResources {
-           enable = true
-       }
-       withHostTest {
-           isIncludeAndroidResources = true
-       }
+
+        namespace = "com.coreai.coreai.shared"
+        compileSdk =
+            libs.versions.android.compileSdk.get().toInt()
+
+        minSdk =
+            libs.versions.android.minSdk.get().toInt()
+
+        compilerOptions {
+            jvmTarget = JvmTarget.JVM_11
+        }
+
+        androidResources {
+            enable = true
+        }
+
+        withHostTest {
+            isIncludeAndroidResources = true
+        }
     }
-    
+
     sourceSets {
+
         androidMain.dependencies {
             implementation(libs.compose.uiToolingPreview)
         }
+
         commonMain.dependencies {
+
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
             implementation(libs.compose.material3)
@@ -47,7 +58,14 @@ kotlin {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+
+            implementation("io.ktor:ktor-client-core:2.3.12")
+            implementation("io.ktor:ktor-client-content-negotiation:2.3.12")
+            implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.12")
+            implementation("io.ktor:ktor-client-okhttp:2.3.12")
+            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
         }
+
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
