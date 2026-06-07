@@ -45,7 +45,14 @@ kotlin {
     sourceSets {
 
         androidMain.dependencies {
-            implementation(libs.compose.uiToolingPreview)
+
+            implementation(
+                libs.compose.uiToolingPreview
+            )
+
+            implementation(
+                "io.ktor:ktor-client-android:2.3.12"
+            )
         }
 
         commonMain.dependencies {

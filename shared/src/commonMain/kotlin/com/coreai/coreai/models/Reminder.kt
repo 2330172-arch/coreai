@@ -6,5 +6,7 @@ import kotlinx.serialization.Serializable
 data class Reminder(
     val id: Int,
     val titulo: String,
-    val hora: String
+    val hora: String,
+    val fecha: String = "",
+    val activo: Boolean = true
 )

@@ -3,26 +3,45 @@ package com.coreai.coreai.network
 import com.coreai.coreai.models.Reminder
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
+import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.json.Json
 
 class ReminderService {
 
-    private val client = HttpClient()
+    private val client = HttpClient() {
 
-    suspend fun getReminders(): List<Reminder> {
+        install(ContentNegotiation) {
+
+            json(
+                Json {
+                    ignoreUnknownKeys = true
+                    isLenient = true
+                }
+            )
+        }
+    }
+
+    suspend fun getReminders():
+            List<Reminder> {
 
         return try {
 
             client.get(
-                "https://TU-URL-RAILWAY/recordatorios"
+                "https://https-coreia-backenduprailwayapp-production.up.railway.app/recordatorios"
             ).body()
 
         } catch (e: Exception) {
 
             listOf(
-                Reminder(1, "Medicamento", "08:00"),
-                Reminder(2, "Reunión", "10:30"),
-                Reminder(3, "Llamada", "13:15")
+                Reminder(
+                    id = 1,
+                    titulo = "cita medica",
+                    hora = "12:00",
+                    fecha = "",
+                    activo = false
+                )
             )
         }
     }
