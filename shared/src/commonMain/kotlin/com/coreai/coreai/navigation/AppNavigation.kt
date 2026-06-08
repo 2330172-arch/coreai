@@ -18,7 +18,11 @@ fun AppNavigation() {
     when(currentScreen) {
 
         Screen.HOME ->
-            HomeScreen()
+            HomeScreen(
+                abrirRecordatorios = {
+                    currentScreen = Screen.REMINDERS
+                }
+            )
 
         Screen.EMERGENCY ->
             EmergencyScreen()

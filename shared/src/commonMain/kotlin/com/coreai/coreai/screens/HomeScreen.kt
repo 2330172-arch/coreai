@@ -69,7 +69,9 @@ fun CoreOrb() {
     }
 }
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    abrirRecordatorios: () -> Unit
+) {
 
     Box(
         modifier = Modifier
@@ -170,7 +172,7 @@ fun HomeScreen() {
             Spacer(modifier = Modifier.height(12.dp))
 
             Button(
-                onClick = {},
+                onClick = abrirRecordatorios,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(60.dp)
