@@ -1,222 +1,142 @@
 package com.coreai.coreai.screens
-
+import com.coreai.coreai.network.EmergencyService
+import com.coreai.coreai.models.Emergency
+import com.coreai.coreai.repository.EmergencyRepository
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.launch
+import kotlin.random.Random
 
-private val FondoEmergency = Color(0xFF081018)
-private val AzulEmergency = Color(0xFF00E5FF)
-private val CardEmergency = Color(0xFF151C24)
-private val RojoSOS = Color(0xFFD50000)
 
+
+
+
+
+// 4. PANTALLA DE INTERFAZ DE USUARIO CON INTERACCIÓN REFORZADA
 @Composable
 fun EmergencyScreen() {
+    val scope = rememberCoroutineScope()
+    val repository = remember { EmergencyRepository() }
 
-    var gpsEnabled by remember { mutableStateOf(true) }
-    var audioEnabled by remember { mutableStateOf(false) }
+    var systemStatus by remember { mutableStateOf("Activo") }
+    var realTimeLocation by remember { mutableStateOf(true) }
+    var autoAudio by remember { mutableStateOf(true) }
+    var alertConfirmation by remember { mutableStateOf("") }
+
+    val contacts = listOf("Mama", "Papa", "Hermano")
+    var historyList by remember { mutableStateOf(repository.getLocalHistory()) }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(_root_ide_package_.com.coreai.coreai.screens.FondoEmergency)
-            .padding(16.dp)
+            .background(Color.White)
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Text("CORE AI", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Color(0xFF6200EE))
+        Text("SECCION DE EMERGENCIA", fontSize = 14.sp, color = Color.Gray)
 
-        // ENCABEZADO
+        Spacer(modifier = Modifier.height(24.dp))
 
-        Text(
-            text = "CORE AI",
-            color = _root_ide_package_.com.coreai.coreai.screens.AzulEmergency,
-            fontSize = 30.sp
-        )
+        // BOTÓN SOS CON CAPA DE CLICK EXPLICITA Y RESPUESTA VISUAL
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .size(140.dp)
+                .clip(CircleShape)
+                .background(Color.Red)
+                .clickable {
+                    val newEmergency = Emergency(
+                        id = Random.nextInt(100, 999),
+                        usuario = "Carlos",
+                        mensaje = "Necesito ayuda urgente - SOS",
+                        fecha = "2026-06-08"
+                    )
+
+                    scope.launch {
+                        val success = repository.sendAndSaveEmergency(newEmergency)
+                        historyList = repository.getLocalHistory()
+
+                        alertConfirmation = if (success) {
+                            "¡Alerta SOS despachada con exito!"
+                        } else {
+                            "Alerta resguardada en cache local."
+                        }
+                    }
+                }
+        ) {
+            Text("SOS", color = Color.White, fontSize = 32.sp, fontWeight = FontWeight.Bold)
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+        Text("Estado de Sensores: $systemStatus", fontSize = 16.sp, fontWeight = FontWeight.Medium)
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)) {
+            Checkbox(checked = realTimeLocation, onCheckedChange = { realTimeLocation = it })
+            Text("Ubicación en tiempo real habilitada", fontSize = 14.sp)
+        }
+        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)) {
+            Checkbox(checked = autoAudio, onCheckedChange = { autoAudio = it })
+            Text("Grabación de audio automática", fontSize = 14.sp)
+        }
+
+        if (alertConfirmation.isNotEmpty()) {
+            Card(
+                colors = CardDefaults.cardColors(containerColor = Color(0xFFE8F5E9)),
+                modifier = Modifier.padding(vertical = 12.dp).fillMaxWidth()
+            ) {
+                Text(
+                    text = alertConfirmation,
+                    color = Color(0xFF2E7D32),
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(12.dp).align(Alignment.CenterHorizontally)
+                )
+            }
+        }
 
         Spacer(modifier = Modifier.height(8.dp))
+        HorizontalDivider(thickness = 1.dp, color = Color.LightGray)
+        Spacer(modifier = Modifier.height(8.dp))
 
-        Text(
-            text = "Sección de Emergencia",
-            color = Color.White,
-            fontSize = 24.sp
-        )
+        Text("Contactos de Red Asignados:", fontWeight = FontWeight.Bold, modifier = Modifier.align(Alignment.Start))
+        contacts.forEach { contact ->
+            Text("• $contact", modifier = Modifier.align(Alignment.Start).padding(start = 8.dp))
+        }
 
-        Text(
-            text = "Sistema monitoreado activamente",
-            color = _root_ide_package_.com.coreai.coreai.screens.AzulEmergency
-        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Text("Historial de Alertas Emitidas (LazyColumn):", fontWeight = FontWeight.Bold, modifier = Modifier.align(Alignment.Start))
 
-        Spacer(modifier = Modifier.height(25.dp))
-
-        // TARJETA PRINCIPAL
-
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            colors = CardDefaults.cardColors(
-                containerColor = _root_ide_package_.com.coreai.coreai.screens.CardEmergency
-            ),
-            shape = RoundedCornerShape(16.dp)
-        ) {
-
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(20.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-
-                Text(
-                    text = "ACCIÓN CRÍTICA",
-                    color = Color.Red
-                )
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                Button(
-                    onClick = {
-                        // Aquí después conectaremos el SOS real
-                    },
-                    modifier = Modifier
-                        .width(180.dp)
-                        .height(180.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = _root_ide_package_.com.coreai.coreai.screens.RojoSOS
-                    ),
-                    shape = RoundedCornerShape(20.dp)
+        LazyColumn(modifier = Modifier.fillMaxWidth().weight(1f)) {
+            items(historyList) { item ->
+                Card(
+                    modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
+                    colors = CardDefaults.cardColors(containerColor = Color(0xFFF5F5F5))
                 ) {
-
-                    Text(
-                        text = "✱\n\nSOS",
-                        fontSize = 28.sp
-                    )
+                    Column(modifier = Modifier.padding(12.dp)) {
+                        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                            Text("ID Tráfico: #${item.id}", fontSize = 11.sp, color = Color.Gray)
+                            Text("Fecha: ${item.fecha}", fontSize = 11.sp, color = Color.Gray)
+                        }
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text("Origen: ${item.usuario}", fontWeight = FontWeight.Bold, fontSize = 14.sp)
+                        Text("Payload: ${item.mensaje}", fontSize = 13.sp)
+                    }
                 }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                Text(
-                    text = "Presiona para alertar a todos los contactos inmediatamente",
-                    color = Color.White
-                )
             }
-        }
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        // LOCALIZACIÓN
-
-        Card(
-            colors = CardDefaults.cardColors(
-                containerColor = _root_ide_package_.com.coreai.coreai.screens.CardEmergency
-            )
-        ) {
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-
-                Text(
-                    text = "📍 Localización en tiempo real",
-                    color = Color.White
-                )
-
-                Switch(
-                    checked = gpsEnabled,
-                    onCheckedChange = {
-                        gpsEnabled = it
-                    }
-                )
-            }
-        }
-
-        Spacer(modifier = Modifier.height(10.dp))
-
-        // AUDIO
-
-        Card(
-            colors = CardDefaults.cardColors(
-                containerColor = _root_ide_package_.com.coreai.coreai.screens.CardEmergency
-            )
-        ) {
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-
-                Text(
-                    text = "🎤 Enviar audio automático",
-                    color = Color.White
-                )
-
-                Switch(
-                    checked = audioEnabled,
-                    onCheckedChange = {
-                        audioEnabled = it
-                    }
-                )
-            }
-        }
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        // CONTACTOS
-
-        Text(
-            text = "CONTACTOS DE EMERGENCIA",
-            color = _root_ide_package_.com.coreai.coreai.screens.AzulEmergency
-        )
-
-        Spacer(modifier = Modifier.height(10.dp))
-
-        _root_ide_package_.com.coreai.coreai.screens.ContactCard("Mamá")
-        _root_ide_package_.com.coreai.coreai.screens.ContactCard("Papá")
-        _root_ide_package_.com.coreai.coreai.screens.ContactCard("Novia")
-    }
-}
-
-@Composable
-fun ContactCard(nombre: String) {
-
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 8.dp),
-
-        colors = CardDefaults.cardColors(
-            containerColor = _root_ide_package_.com.coreai.coreai.screens.CardEmergency
-        )
-    ) {
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-
-            Text(
-                text = nombre,
-                color = Color.White
-            )
-
-            Text(
-                text = "📞",
-                color = _root_ide_package_.com.coreai.coreai.screens.AzulEmergency
-            )
         }
     }
 }
