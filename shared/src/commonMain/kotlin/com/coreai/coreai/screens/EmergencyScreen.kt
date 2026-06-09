@@ -1,5 +1,7 @@
 package com.coreai.coreai.screens
-
+import com.coreai.coreai.network.EmergencyService
+import com.coreai.coreai.models.Emergency
+import com.coreai.coreai.repository.EmergencyRepository
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -18,35 +20,10 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
-// 1. MODELO DE DATOS LOCAL
-data class Emergency(
-    val id: Int,
-    val usuario: String,
-    val mensaje: String,
-    val fecha: String
-)
 
-// 2. SERVICIO DE RED LOCAL
-class EmergencyService {
-    suspend fun sendEmergency(emergency: Emergency): Boolean {
-        println("Envio exitoso de paquete de red para ID: ${emergency.id}")
-        return true
-    }
-}
 
-// 3. REPOSITORIO LOCAL
-class EmergencyRepository {
-    private val service = EmergencyService()
-    companion object {
-        private val localCacheList = mutableListOf<Emergency>()
-    }
-    suspend fun sendAndSaveEmergency(emergency: Emergency): Boolean {
-        val networkResult = service.sendEmergency(emergency)
-        localCacheList.add(emergency)
-        return networkResult
-    }
-    fun getLocalHistory(): List<Emergency> = localCacheList.toList()
-}
+
+
 
 // 4. PANTALLA DE INTERFAZ DE USUARIO CON INTERACCIÓN REFORZADA
 @Composable

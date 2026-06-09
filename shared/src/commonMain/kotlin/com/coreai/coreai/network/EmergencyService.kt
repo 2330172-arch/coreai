@@ -1,6 +1,6 @@
 package com.coreai.coreai.network
 
-import com.coreai.coreai.screens.Emergency
+import com.coreai.coreai.models.Emergency
 
 class EmergencyService {
     // 🚂 URL BASE DE RAILWAY CONFIGURADA CORRECTAMENTE

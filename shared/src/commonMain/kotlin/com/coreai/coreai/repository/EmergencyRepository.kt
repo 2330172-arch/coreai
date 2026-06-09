@@ -1,4 +1,4 @@
-package coreai.repository
+package com.coreai.coreai.repository
 
 import com.coreai.coreai.models.Emergency
 import com.coreai.coreai.network.EmergencyService
