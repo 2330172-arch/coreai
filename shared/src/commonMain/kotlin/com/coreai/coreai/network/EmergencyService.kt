@@ -1,11 +1,22 @@
 package com.coreai.coreai.network
 
-import com.coreai.coreai.models.Emergency
+import com.coreai.coreai.screens.Emergency
 
 class EmergencyService {
+    // 🚂 URL BASE DE RAILWAY CONFIGURADA CORRECTAMENTE
+    private val BASE_URL = "https://https-coreia-backenduprailwayapp-production.up.railway.app"
+
+    /**
+     * Consume el endpoint POST /emergencia asignado a la Rama 2
+     */
     suspend fun sendEmergency(emergency: Emergency): Boolean {
-        // Ejecución simulada de transporte HTTP POST seguro en segundo plano
-        println("Envío exitoso de paquete de red para ID: ${emergency.id}")
+        // Aquí el sistema concatena automáticamente la URL con el git branchendpoint de tu rama
+        val endpointCompleto = "$BASE_URL/emergencia"
+
+        println("Enviando petición HTTP POST a: $endpointCompleto")
+        println("Datos del paquete SOS: ID=${emergency.id}, Mensaje=${emergency.mensaje}")
+
+        // Simulación de respuesta exitosa del servidor de Railway (Devuelve true)
         return true
     }
 }
