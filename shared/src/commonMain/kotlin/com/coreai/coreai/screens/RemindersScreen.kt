@@ -1,4 +1,5 @@
 package com.coreai.coreai.screens
+import com.coreai.coreai.notifications.NotificationManager
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -228,6 +229,10 @@ fun RemindersScreen() {
                             hora = ""
 
                             editingId = null
+                            NotificationManager.showNotification(
+                                title = "Recordatorio guardado",
+                                message = titulo
+                            )
                             showDialog = false
                         }
                     }

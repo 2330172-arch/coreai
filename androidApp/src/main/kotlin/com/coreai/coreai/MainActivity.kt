@@ -18,7 +18,8 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.coreai.coreai.notifications.NotificationHelper
+import com.coreai.coreai.notifications.NotificationManager as CoreNotificationManager
+
 class MainActivity : ComponentActivity() {
 
     /**
@@ -39,10 +40,11 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
+
         enableEdgeToEdge()
 
         super.onCreate(savedInstanceState)
-
+        CoreNotificationManager.initialize(applicationContext)
         createNotificationChannel()
 
         requestNotificationPermission()

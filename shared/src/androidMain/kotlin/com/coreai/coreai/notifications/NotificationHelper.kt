@@ -6,7 +6,7 @@ import android.content.Context
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import com.coreai.coreai.R
+
 
 object NotificationHelper {
 
@@ -53,7 +53,7 @@ object NotificationHelper {
                 context,
                 NotificationConfig.CHANNEL_ID
             )
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(android.R.drawable.ic_dialog_info)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setPriority(
