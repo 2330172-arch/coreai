@@ -220,6 +220,7 @@ fun RemindersScreen() {
 
                                 reminders =
                                     reminders + newReminder
+
                             }
 
                             titulo = ""
