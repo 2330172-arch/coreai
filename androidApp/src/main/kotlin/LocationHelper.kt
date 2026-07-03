@@ -1,4 +1,4 @@
-package com.coreai.coreai
+package com.coreai.coreai.notifications
 
 import android.annotation.SuppressLint
 import android.content.Context
